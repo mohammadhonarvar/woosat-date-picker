@@ -53,5 +53,11 @@ export default {
     dir: 'build',
     sourcemap: false,
   },
-  preserveEntrySignatures: 'strict'
+  preserveEntrySignatures: 'strict',
+  treeshake: {
+    moduleSideEffects: [
+      // Allow side effects for polyfills and global styles
+      './node_modules/@lit/**',
+    ],
+  },
 };
