@@ -47,12 +47,9 @@ export class HeaderElement extends BaseElement {
       background-color: rgba(var(--theme-primary-color), 0.09);
     }
 
-    [rtl] .next {
-      rotate: 180deg;
-    }
-
-    [rtl] .previous {
-      rotate: 180deg;
+    :host([dir='rtl']) .next,
+    :host([dir='rtl']) .previous {
+      transform: rotate(180deg);
     }
 
     [hidden] {
@@ -65,6 +62,15 @@ export class HeaderElement extends BaseElement {
     this.calendarActiveView = 'calendar';
     this.headerTitle = '';
     this.disableNavigation = false;
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback?.();
+
+    const htmlDir = document.documentElement.getAttribute('dir');
+    if (htmlDir) {
+      this.setAttribute('dir', htmlDir);
+    }
   }
 
   protected render(): TemplateResult {
