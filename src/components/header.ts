@@ -52,6 +52,11 @@ export class HeaderElement extends BaseElement {
       rotate: 180deg;
     }
 
+    [rtl] .previous,
+    .next {
+      rotate: 180deg;
+    }
+
     [hidden] {
       display: none;
     }
