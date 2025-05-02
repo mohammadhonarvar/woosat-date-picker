@@ -54,10 +54,12 @@ export default {
     sourcemap: false,
   },
   preserveEntrySignatures: 'strict',
-  treeshake: {
-    moduleSideEffects: [
-      // Allow side effects for polyfills and global styles
-      './node_modules/@lit/**',
-    ],
-  },
+  // treeshake: {
+  //   moduleSideEffects: [
+  //     './node_modules/@lit/**',
+  //     './node_modules/@polymer/**',
+  //     './node_modules/@web/**',
+  //     './node_modules/@webcomponents/**',
+  //   ],
+  // },
 };
