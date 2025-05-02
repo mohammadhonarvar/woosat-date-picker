@@ -5,7 +5,6 @@ import { terser } from 'rollup-plugin-terser';
 import minifyHTML from 'rollup-plugin-minify-html-literals';
 import summary from 'rollup-plugin-summary';
 import replace from '@rollup/plugin-replace';
-import { visualizer } from 'rollup-plugin-visualizer';
 
 export default {
   plugins: [
@@ -36,12 +35,16 @@ export default {
         passes: 3,
         pure_funcs: ['console.log', 'console.info', 'console.debug'],
       },
+      mangle: {
+        properties: {
+          regex: /^_/,
+        },
+      },
       format: {
         comments: false,
       },
     }),
     summary(),
-    visualizer({ filename: 'build/stats.html', open: false }),
     copy({
       patterns: ['images/**/*'],
     }),
@@ -50,8 +53,5 @@ export default {
     dir: 'build',
     sourcemap: false,
   },
-  preserveEntrySignatures: 'strict',
-  treeshake: {
-    moduleSideEffects: false,
-  },
+  preserveEntrySignatures: 'strict'
 };
