@@ -47,13 +47,11 @@ export class HeaderElement extends BaseElement {
       background-color: rgba(var(--theme-primary-color), 0.09);
     }
 
-    [rtl] .next,
-    .previous {
+    [rtl] .next {
       rotate: 180deg;
     }
 
-    [rtl] .previous,
-    .next {
+    [rtl] .previous {
       rotate: 180deg;
     }
 
