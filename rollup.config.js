@@ -35,11 +35,11 @@ export default {
         passes: 3,
         pure_funcs: ['console.log', 'console.info', 'console.debug'],
       },
-      // mangle: {
-      //   properties: {
-      //     regex: /^_/,
-      //   },
-      // },
+      mangle: {
+        properties: {
+          regex: /^_/,
+        },
+      },
       format: {
         comments: false,
       },
