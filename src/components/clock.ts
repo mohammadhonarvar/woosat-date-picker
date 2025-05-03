@@ -34,6 +34,8 @@ export class ClockElement extends BaseElement {
       justify-content: center;
       align-items: center;
       margin-top: 24px;
+      direction: ltr;
+      user-select: none;
     }
 
     .clock {
