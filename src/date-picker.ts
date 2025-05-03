@@ -65,11 +65,16 @@ export class DatePicker extends BaseElement {
     if (changedProperties.has('solar')) {
       if (this.solar) {
         this.initialDate = fixPersianNumber(new Date().toLocaleDateString('fa'));
-        this.onScreenDate = this.initialDate;
-        this.activeDate = this.initialDate;
       } else {
         this.initialDate = new Date().toLocaleDateString('en-CA');
       }
+
+      this.onScreenDate = this.initialDate;
+      this.activeDate = this.initialDate;
+    }
+
+    if (changedProperties.has('activeDate')) {
+      this.onScreenDate = this.activeDate;
     }
 
     super.update(changedProperties);
