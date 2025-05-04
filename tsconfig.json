@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["es2017", "dom"],
-    "declaration": false,
+    "declaration": true,
     "sourceMap": true,
     "strict": true,
     "noUnusedLocals": true,
@@ -17,7 +17,8 @@
     "importHelpers": true,
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
-    "outDir": "js"
+    "outDir": "js",
+    "declarationDir": "build/types",
   },
   "include": [
     "src/**/*.ts"
