@@ -1,7 +1,7 @@
 import { css, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import CalendarBaseElement from './calendar-base';
+import CalendarBaseElement, { type SelectedDateType } from './calendar-base';
 import { calendarBaseStyle } from '../base-style';
 import { convertStringToNumberArray } from '../utils/convert-string-to-number-array';
 
@@ -210,5 +210,21 @@ export class GregorianCalendarElement extends CalendarBaseElement {
 
     this.calendarWeekList = this.calculateCalendar();
     super.calculateCalendarWeekList();
+  }
+
+  protected onDayClick(event: MouseEvent): void {
+    super.onDayClick(event);
+
+    const currentDate = event.currentTarget!['date'];
+    const _currentDateString = (currentDate as []).join('/');
+
+    this._fire<SelectedDateType>(
+      'date-changed',
+      {
+        rawDate: new Date(_currentDateString),
+        calendarDate: _currentDateString,
+      },
+      true,
+    );
   }
 }
