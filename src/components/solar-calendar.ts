@@ -118,8 +118,9 @@ export class SolarCalendarElement extends CalendarBaseElement {
       this.calendarWeekList = this.calculateCalendar();
     }
 
-    if (changedProperties.has('activeDate')) {
+    if (changedProperties.has('activeDate') && this.activeDate != null) {
       this.calendarActiveDate = convertStringToNumberArray(this.activeDate as string, '/');
+      this.selectedDateList = [this.calendarActiveDate.slice(0, 3)];
     }
 
     super.update(changedProperties);
