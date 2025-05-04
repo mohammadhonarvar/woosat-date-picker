@@ -59,8 +59,8 @@ export default class CalendarBaseElement extends BaseElement {
   @property({ type: Boolean })
   hideLastFadedRow: boolean;
 
-  @property({ type: Boolean })
-  highlightToday: boolean;
+  @property({ type: Boolean, attribute: 'show-today' })
+  highlightToday?: boolean;
 
   @property({ type: Array })
   monthsDaysCount: number[];
@@ -103,7 +103,7 @@ export default class CalendarBaseElement extends BaseElement {
     this.timePicker = false;
     this.onlyShowCurrentMonthDays = false;
     this.hideLastFadedRow = false;
-    this.highlightToday = true;
+    this.highlightToday = false;
     this.monthsDaysCount = [];
     this.monthList = [];
     this.calendarInitDate = [];
@@ -262,7 +262,7 @@ export default class CalendarBaseElement extends BaseElement {
     const classList = {
       'calendar-day': true,
       fade: (index === 0 && day > 7) || (index > 2 && day < 15),
-      'current-date-highlight': this.highlightToday && today === day,
+      'current-date-highlight': notForThisMonth === false && this.highlightToday === true && today === day,
       'selected-date':
         !notForThisMonth &&
         this.selectedDateList[0] &&
