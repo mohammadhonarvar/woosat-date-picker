@@ -29,6 +29,9 @@ export class DatePicker extends BaseElement {
   @property({ type: String, attribute: 'active-date' })
   activeDate?: string;
 
+  @property({ type: Boolean, attribute: 'show-today' })
+  highlightToday?: boolean;
+
   // must be sorted past[index: 0] -> future[index: 1]
   // 2D array -> [[2020, 2, 3]] || [[2020, 2, 3], [2020, 6, 1]] || []
   @property({ type: Array })
@@ -57,25 +60,46 @@ export class DatePicker extends BaseElement {
     this.rangePicker = false;
     this.selectedDateList = [];
     this.selectedTime = [];
+    this.highlightToday = false;
   }
 
   protected update(changedProperties: Map<string | number | symbol, unknown>): void {
-    this._log('update');
+    if (changedProperties.has('solar') && this.solar === true) {
+      if (changedProperties.has('initialDate') && this.initialDate != null) {
+        this.initialDate = fixPersianNumber(this.initialDate);
+      } else {
+        this.initialDate = fixPersianNumber(new Date().toLocaleDateString('fa-IR'));
+      }
 
-    if (changedProperties.has('solar')) {
-      if (this.solar) {
-        this.initialDate = fixPersianNumber(new Date().toLocaleDateString('fa'));
+      if (changedProperties.has('activeDate') && this.activeDate != null) {
+        this.activeDate = fixPersianNumber(this.activeDate);
+      } else {
+        this.activeDate = this.initialDate;
+      }
+    }
+
+    if (this.solar === false) {
+      if (changedProperties.has('initialDate') && this.initialDate != null) {
+        this.initialDate = new Date(fixPersianNumber(this.initialDate)).toLocaleDateString('en-CA');
       } else {
         this.initialDate = new Date().toLocaleDateString('en-CA');
       }
 
-      this.onScreenDate = this.initialDate;
-      this.activeDate = this.initialDate;
+      if (changedProperties.has('activeDate') && this.activeDate != null) {
+        this.activeDate = fixPersianNumber(this.activeDate);
+      }
     }
 
-    if (changedProperties.has('activeDate')) {
-      this.onScreenDate = this.activeDate;
-    }
+    this.onScreenDate = this.initialDate;
+
+    this._log('update', {
+      initialDate: this.initialDate,
+      activeDate: this.activeDate,
+      highlightToday: this.highlightToday,
+      rangePicker: this.rangePicker,
+      timePicker: this.timePicker,
+      selectedDateList: this.selectedDateList,
+    });
 
     super.update(changedProperties);
   }
@@ -87,6 +111,8 @@ export class DatePicker extends BaseElement {
         ? html` <solar-calendar-element
             debug
             date="${ifDefined(this.initialDate)}"
+            active-date="${ifDefined(this.activeDate)}"
+            ?show-today="${this.highlightToday}"
             ?range-picker="${this.rangePicker}"
             ?time-picker="${this.timePicker}"
             .selectedDateList=${this.selectedDateList}
@@ -102,6 +128,8 @@ export class DatePicker extends BaseElement {
         : html`
             <gregorian-calendar-element
               date="${ifDefined(this.initialDate)}"
+              active-date="${ifDefined(this.activeDate)}"
+              ?show-today="${this.highlightToday}"
               ?range-picker="${this.rangePicker}"
               ?time-picker="${this.timePicker}"
               .selectedDateList=${this.selectedDateList}
