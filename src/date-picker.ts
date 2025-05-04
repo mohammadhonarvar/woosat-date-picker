@@ -72,9 +72,9 @@ export class DatePicker extends BaseElement {
       }
 
       if (changedProperties.has('activeDate') && this.activeDate != null) {
-        this.activeDate = new Date(fixPersianNumber(this.activeDate)).toLocaleDateString('en-CA');
+        this.activeDate = fixPersianNumber(this.activeDate);
       } else {
-        this.activeDate = this.initialDate;
+        this.activeDate = fixPersianNumber(this.initialDate);
       }
     }
 
@@ -86,7 +86,7 @@ export class DatePicker extends BaseElement {
       }
 
       if (changedProperties.has('activeDate') && this.activeDate != null) {
-        this.activeDate = new Date(fixPersianNumber(this.activeDate)).toLocaleDateString('en-CA');
+        this.activeDate = fixPersianNumber(this.activeDate);
       }
     }
 
