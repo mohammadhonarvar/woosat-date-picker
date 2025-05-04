@@ -49,7 +49,7 @@ export abstract class BaseElement extends LitElement {
     return new Intl.NumberFormat(this.lang).format(number);
   }
 
-  protected _fire(eventName: string, detail: unknown, bubbles = false): void {
+  protected _fire<T>(eventName: string, detail: T, bubbles = false): void {
     this._log('fire %s {%o}', eventName, detail);
     this.dispatchEvent(
       new CustomEvent(eventName, {
