@@ -6,6 +6,7 @@
 import { TemplateResult, html, PropertyValues } from 'lit';
 import { nothing } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { property, query, queryAll } from 'lit/decorators.js';
 
 import { BaseElement } from '../base-element';
 import './month-list';
@@ -19,8 +20,9 @@ import './clock';
 import './week-labels';
 import { arrowBackward, clock } from '../utils/icon';
 
-import { MonthInterface, WeekDayInterface } from '../data/solar';
-import { property, query, queryAll } from 'lit/decorators.js';
+import type { MonthInterface, WeekDayInterface } from '../data/solar';
+
+export type SelectedDateType = { rawDate: Date; calendarDate: string };
 
 export default class CalendarBaseElement extends BaseElement {
   @property({ type: String, attribute: 'date' })
@@ -291,8 +293,6 @@ export default class CalendarBaseElement extends BaseElement {
 
     const currentDate = event.currentTarget?.['date'];
     if (!currentDate) return;
-
-    this._fire('date-changed', (currentDate as []).join('-'), true);
 
     if (!this.rangePicker) {
       (event.currentTarget as HTMLDivElement).classList.add('selected-date');
