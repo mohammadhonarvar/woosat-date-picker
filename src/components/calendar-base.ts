@@ -35,7 +35,7 @@ export default class CalendarBaseElement extends BaseElement {
   maxDate: string | undefined;
 
   @property({ type: String })
-  activeView: string;
+  activeView: 'calendar' | 'monthList' | 'yearList' | 'decadeList' | 'clock';
 
   @property({ type: String, attribute: 'active-date' })
   activeDate: string | undefined;
@@ -205,7 +205,7 @@ export default class CalendarBaseElement extends BaseElement {
           @decade-changed=${this.decadeChanged}
         >
         </decade-list>
-        <clock-element debug ?hidden="${this.activeView !== 'clock'}"> </clock-element>
+        <clock-element ?debug="${this.debug}" ?hidden="${this.activeView !== 'clock'}"> </clock-element>
       </div>
       ${this.timePicker
         ? html`
