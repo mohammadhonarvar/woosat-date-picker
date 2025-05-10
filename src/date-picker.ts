@@ -109,9 +109,9 @@ export class DatePicker extends BaseElement {
     return html`
       ${this.solar
         ? html` <solar-calendar-element
-            debug
             date="${ifDefined(this.initialDate)}"
             active-date="${ifDefined(this.activeDate)}"
+            ?debug="${this.debug}"
             ?show-today="${this.highlightToday}"
             ?range-picker="${this.rangePicker}"
             ?time-picker="${this.timePicker}"
@@ -129,6 +129,7 @@ export class DatePicker extends BaseElement {
             <gregorian-calendar-element
               date="${ifDefined(this.initialDate)}"
               active-date="${ifDefined(this.activeDate)}"
+              ?debug="${ifDefined(this.debug)}"
               ?show-today="${this.highlightToday}"
               ?range-picker="${this.rangePicker}"
               ?time-picker="${this.timePicker}"
