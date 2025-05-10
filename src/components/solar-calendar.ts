@@ -89,7 +89,7 @@ export class SolarCalendarElement extends CalendarBaseElement {
 
     // Create array of initDate when it's changed
     if (changedProperties.has('initDate')) {
-      const initDateArray = convertStringToNumberArray(this.initDate as string, '/');
+      const initDateArray = convertStringToNumberArray(this.initDate as string, '-');
       if (
         initDateArray[0] > this.maxDateArray[0] ||
         (initDateArray[0] === this.maxDateArray[0] && initDateArray[1] > this.maxDateArray[1]) ||
@@ -115,13 +115,16 @@ export class SolarCalendarElement extends CalendarBaseElement {
       // We need a cloned array here
       this.calendarOnScreenDate = initDateArray.slice(0);
       this.calendarActiveDate = initDateArray.slice(0);
-      this.calendarWeekList = this.calculateCalendar();
     }
 
     if (changedProperties.has('activeDate') && this.activeDate != null) {
-      this.calendarActiveDate = convertStringToNumberArray(this.activeDate as string, '/');
+      const activeDateArray = convertStringToNumberArray(this.activeDate as string, '-');
+      this.calendarOnScreenDate = activeDateArray;
+      this.calendarActiveDate = activeDateArray;
       this.selectedDateList = [this.calendarActiveDate.slice(0, 3)];
     }
+
+    this.calendarWeekList = this.calculateCalendar();
 
     super.update(changedProperties);
   }

@@ -89,13 +89,16 @@ export class GregorianCalendarElement extends CalendarBaseElement {
       // We need a cloned array here
       this.calendarOnScreenDate = initDateArray.slice(0);
       this.calendarActiveDate = initDateArray.slice(0);
-      this.calendarWeekList = this.calculateCalendar();
     }
 
     if (changedProperties.has('activeDate') && this.activeDate != null) {
-      this.calendarActiveDate = convertStringToNumberArray(this.activeDate as string, '/');
+      const activeDateArray = convertStringToNumberArray(this.activeDate as string, '-');
+      this.calendarOnScreenDate = activeDateArray;
+      this.calendarActiveDate = activeDateArray;
       this.selectedDateList = [this.calendarActiveDate.slice(0, 3)];
     }
+
+    this.calendarWeekList = this.calculateCalendar();
 
     super.update(changedProperties);
   }
@@ -149,14 +152,18 @@ export class GregorianCalendarElement extends CalendarBaseElement {
 
     for (let i = startWeekAtIndex + 1; calendar.length < 6; ++i) {
       const day = i > totalCells ? i - totalCells : i - startWeekAtIndex;
+
       if (i % 7 === 0) {
         week.push(day);
         calendar.push(week);
         week = [];
-        if ((this.onlyShowCurrentMonthDays || this.hideLastFadedRow) && 7 * calendar.length >= totalCells)
+        if ((this.onlyShowCurrentMonthDays || this.hideLastFadedRow) && 7 * calendar.length >= totalCells) {
           break;
+        }
+
         continue;
       }
+
       week.push(day);
     }
 
