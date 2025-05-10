@@ -89,7 +89,7 @@ export class SolarCalendarElement extends CalendarBaseElement {
 
     // Create array of initDate when it's changed
     if (changedProperties.has('initDate')) {
-      const initDateArray = convertStringToNumberArray(this.initDate as string, '-');
+      const initDateArray = convertStringToNumberArray(this.initDate as string, '/');
       if (
         initDateArray[0] > this.maxDateArray[0] ||
         (initDateArray[0] === this.maxDateArray[0] && initDateArray[1] > this.maxDateArray[1]) ||
